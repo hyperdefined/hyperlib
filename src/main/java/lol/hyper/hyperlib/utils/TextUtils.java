@@ -4,7 +4,6 @@ import lol.hyper.hyperlib.HyperLib;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,33 +20,27 @@ public class TextUtils {
     }
 
     /**
-     * Format a string from the config.
+     * Format a string into a Component. Supports legacy and MiniMessage.
      *
-     * @param configName The config to format.
-     * @return Formatted string, null if the configName doesn't exist.
+     * @param input The message to format.
+     * @return Formatting Component.
      */
-    public Component format(YamlConfiguration config, String configName) {
-        String message = config.getString(configName);
-        if (message == null) {
-            HyperLib.getPluginLogger().warn("Unable to find config message for: {}", configName);
-            return null;
-        }
-
+    public Component format(String input) {
         // if the config message is empty, don't send it
-        if (message.isEmpty()) {
+        if (input.isEmpty()) {
             return null;
         }
 
         // the final component for this lore
         Component component;
         // if we match the old color codes, then format them as so
-        Matcher hexMatcher = HEX_PATTERN.matcher(message);
-        Matcher colorMatcher = COLOR_CODES.matcher(message);
+        Matcher hexMatcher = HEX_PATTERN.matcher(input);
+        Matcher colorMatcher = COLOR_CODES.matcher(input);
         if (hexMatcher.find() || colorMatcher.find()) {
-            component = LegacyComponentSerializer.legacyAmpersand().deserialize(message);
+            component = LegacyComponentSerializer.legacyAmpersand().deserialize(input);
         } else {
             // otherwise format them normally
-            component = hyperLib.getMiniMessage().deserialize(message);
+            component = hyperLib.getMiniMessage().deserialize(input);
         }
 
         return component.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
