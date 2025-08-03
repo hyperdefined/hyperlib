@@ -65,11 +65,11 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>lol.hyper.toolstats.bstats</shadedPattern>
+                            <shadedPattern>lol.hyper.hyperlib.shaded.bstats</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>lol.hyper.githubreleaseapi</pattern>
-                            <shadedPattern>lol.hyper.toolstats.updater</shadedPattern>
+                            <pattern>org.json</pattern>
+                            <shadedPattern>lol.hyper.toolstats.shaded.json</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
