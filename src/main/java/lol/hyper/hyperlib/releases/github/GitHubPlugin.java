@@ -7,12 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GitHubPlugin {
 
     private final String organization;
     private final String repository;
-    private final ArrayList<GitHubRelease> releases = new ArrayList<>();
+    private final List<GitHubRelease> releases = new ArrayList<>();
     private String latest;
     private String gitHubUrl;
 
@@ -75,7 +76,7 @@ public class GitHubPlugin {
      *
      * @return An array of GitHubRelease objects.
      */
-    public ArrayList<GitHubRelease> getReleases() {
+    public List<GitHubRelease> getReleases() {
         return releases;
     }
 

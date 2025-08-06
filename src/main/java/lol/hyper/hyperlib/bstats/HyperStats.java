@@ -3,13 +3,13 @@ package lol.hyper.hyperlib.bstats;
 import lol.hyper.hyperlib.HyperLib;
 import org.bstats.bukkit.Metrics;
 
-public class bStats {
+public class HyperStats {
 
     private final HyperLib hyperLib;
     private final int id;
     private Metrics metrics;
 
-    public bStats(HyperLib hyperLib, int id) {
+    public HyperStats(HyperLib hyperLib, int id) {
         this.hyperLib = hyperLib;
         this.id = id;
     }

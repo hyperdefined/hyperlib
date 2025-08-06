@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class HangarPlugin {
@@ -15,7 +16,7 @@ public class HangarPlugin {
     private final String loader;
     private String author;
     private String latest;
-    private final ArrayList<HangarRelease> releases = new ArrayList<>();
+    private final List<HangarRelease> releases = new ArrayList<>();
 
     public HangarPlugin(String projectID, String loader) {
         this.projectID = projectID;
@@ -102,7 +103,7 @@ public class HangarPlugin {
      *
      * @return An array of HangarRelease objects.
      */
-    public ArrayList<HangarRelease> getReleases() {
+    public List<HangarRelease> getReleases() {
         return releases;
     }
 

@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class GitHubRelease {
 
@@ -46,7 +47,7 @@ public class GitHubRelease {
         this.versionPage = versionPage;
     }
 
-    public ArrayList<GitHubDownload> getDownloads() {
+    public List<GitHubDownload> getDownloads() {
         return downloads;
     }
 

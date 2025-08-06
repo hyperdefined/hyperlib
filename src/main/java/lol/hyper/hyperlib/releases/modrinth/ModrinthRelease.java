@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ModrinthRelease {
 
@@ -13,7 +14,7 @@ public class ModrinthRelease {
     private Date releaseDate;
     private String releaseType;
     private String versionPage;
-    private final ArrayList<ModrinthDownload> downloads = new ArrayList<>();
+    private final List<ModrinthDownload> downloads = new ArrayList<>();
 
     public ModrinthRelease(String version) {
         this.version = version;
@@ -23,11 +24,11 @@ public class ModrinthRelease {
         supportedVersions.add(version);
     }
 
-    public ArrayList<String> getSupportedVersions() {
+    public List<String> getSupportedVersions() {
         return supportedVersions;
     }
 
-    public ArrayList<String> getSupportedLoaders() {
+    public List<String> getSupportedLoaders() {
         return supportedLoaders;
     }
 
@@ -56,7 +57,7 @@ public class ModrinthRelease {
         this.releaseType = releaseType;
     }
 
-    public ArrayList<ModrinthDownload> getDownloads() {
+    public List<ModrinthDownload> getDownloads() {
         return downloads;
     }
 

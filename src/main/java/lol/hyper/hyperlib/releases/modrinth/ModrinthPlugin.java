@@ -8,12 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class ModrinthPlugin {
 
     private final String projectID;
-    private final ArrayList<ModrinthRelease> releases = new ArrayList<>();
+    private final List<ModrinthRelease> releases = new ArrayList<>();
     private String slug;
     private String type;
     private String latest;
@@ -99,7 +100,7 @@ public class ModrinthPlugin {
      *
      * @return An array of ModrinthRelease objects.
      */
-    public ArrayList<ModrinthRelease> getReleases() {
+    public List<ModrinthRelease> getReleases() {
         return releases;
     }
 

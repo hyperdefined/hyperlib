@@ -4,16 +4,17 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class HangarRelease {
 
-    private final ArrayList<String> supportedVersions = new ArrayList<>();
+    private final List<String> supportedVersions = new ArrayList<>();
     private final String version;
     private final String loader;
     private String author;
     private String versionPage;
     private Date releaseDate;
-    private final ArrayList<HangarDownload> downloads = new ArrayList<>();
+    private final List<HangarDownload> downloads = new ArrayList<>();
 
     public HangarRelease(String version, String loader) {
         this.version = version;
@@ -24,7 +25,7 @@ public class HangarRelease {
         supportedVersions.add(version);
     }
 
-    public ArrayList<String> getSupportedVersions() {
+    public List<String> getSupportedVersions() {
         return supportedVersions;
     }
 
@@ -53,7 +54,7 @@ public class HangarRelease {
         this.releaseDate = Date.from(offsetDateTime.toInstant());
     }
 
-    public ArrayList<HangarDownload> getDownloads() {
+    public List<HangarDownload> getDownloads() {
         return downloads;
     }
 
