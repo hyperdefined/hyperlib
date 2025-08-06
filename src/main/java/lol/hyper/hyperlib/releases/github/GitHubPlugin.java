@@ -59,7 +59,12 @@ public class GitHubPlugin {
                 gitHubDownload.setDownloadUrl(assetData.getString("browser_download_url"));
                 gitHubDownload.setFileName(assetData.getString("name"));
                 String digest = assetData.optString("digest", null);
-                gitHubDownload.setSha256Hash(digest.replace("sha256:", ""));
+                if (digest != null) {
+                    digest = digest.replace("sha256:", "");
+                } else {
+                    digest = "UNKNOWN";
+                }
+                gitHubDownload.setSha256Hash(digest);
                 gitHubRelease.addDownload(gitHubDownload);
             }
 
