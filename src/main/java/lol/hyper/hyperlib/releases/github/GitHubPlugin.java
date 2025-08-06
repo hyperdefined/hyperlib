@@ -23,9 +23,10 @@ public class GitHubPlugin {
 
     public void get() {
         gitHubUrl = "https://github.com/" + organization + "/" + repository;
-        JSONArray releasesFetch = JSONUtils.requestJSONArray(gitHubUrl + "/releases");
+        String apiUrl = "https://api.github.com/repos/" + organization + "/" + repository;
+        JSONArray releasesFetch = JSONUtils.requestJSONArray(apiUrl + "/releases");
         if (releasesFetch == null) {
-            HyperLib.getPluginLogger().error("Unable to fetch plugin information from {}", gitHubUrl + "/releases");
+            HyperLib.getPluginLogger().error("Unable to fetch plugin information from {}", apiUrl + "/releases");
             return;
         }
 
