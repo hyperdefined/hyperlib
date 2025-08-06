@@ -18,7 +18,7 @@ public class TestHangar {
 
         logger.info(plugin.getProjectPage());
 
-        HangarRelease release = plugin.getRelease("1.9.2-hotfix-2");
+        HangarRelease release = plugin.getReleaseByVersion("1.9.2-hotfix-2");
         logger.info(release.getVersionPage());
         for (HangarDownload download : release.getDownloads()) {
             logger.info(download.getDownloadUrl());

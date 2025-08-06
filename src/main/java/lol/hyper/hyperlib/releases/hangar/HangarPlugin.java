@@ -2,18 +2,19 @@ package lol.hyper.hyperlib.releases.hangar;
 
 import lol.hyper.hyperlib.HyperLib;
 import lol.hyper.hyperlib.utils.JSONUtils;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 public class HangarPlugin {
 
     private final String projectID;
     private final String loader;
     private String author;
+    private String latest;
     private final ArrayList<HangarRelease> releases = new ArrayList<>();
 
     public HangarPlugin(String projectID, String loader) {
@@ -45,10 +46,11 @@ public class HangarPlugin {
         // Load the main JSON, then iterate through the `result` JSONArray.
         for (int i = 0; i < result.length(); i++) {
             JSONObject releaseData = result.getJSONObject(i);
-            HangarRelease release = new HangarRelease(releaseData.getString("name"), loader);
+            String version = releaseData.getString("name");
+            HangarRelease release = new HangarRelease(version, loader);
             release.setReleaseDate(releaseData.getString("createdAt"));
             release.setAuthor(releaseData.getString("author"));
-            release.setVersionPage(getProjectPage() + "/versions/" + releaseData.getString("name"));
+            release.setVersionPage(getProjectPage() + "/versions/" + version);
 
             JSONObject platformDependencies = releaseData.getJSONObject("platformDependencies");
             // The loader the user specific is not listed on this version as supported.
@@ -87,17 +89,57 @@ public class HangarPlugin {
             release.addDownload(hangarDownload);
 
             releases.add(release);
+
+            // If this is the first version, set it to the latest one.
+            if (i == 0) {
+                latest = version;
+            }
         }
     }
 
-    public HangarRelease getRelease(String version) {
+    /**
+     * Get all releases for this project.
+     *
+     * @return An array of HangarRelease objects.
+     */
+    public ArrayList<HangarRelease> getReleases() {
+        return releases;
+    }
+
+    /**
+     * Get a certain release by version.
+     *
+     * @param version The version to get.
+     * @return The HangarRelease object, or null if the version does not exist.
+     */
+    public @Nullable HangarRelease getReleaseByVersion(String version) {
         return releases.stream().filter(release -> release.getVersion().equalsIgnoreCase(version)).findFirst().orElse(null);
     }
 
+    /**
+     * Get the latest version of this project.
+     *
+     * @return The HangarRelease for the latest version.
+     */
+    public @Nullable HangarRelease getLatestRelease() {
+        return releases.stream().filter(release -> release.getVersion().equalsIgnoreCase(latest)).findFirst().get();
+    }
+
+    /**
+     * Get how many versions outdated a given release is.
+     *
+     * @param release The release to check.
+     * @return How many "builds behind" it is.
+     */
     public int buildsVersionsBehind(HangarRelease release) {
         return releases.indexOf(release);
     }
 
+    /**
+     * Get the project page.
+     *
+     * @return The project page.
+     */
     public String getProjectPage() {
         return "https://hangar.papermc.io/" + author + "/" + projectID;
     }

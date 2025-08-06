@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,23 +27,45 @@ public class TextUtils {
      * @return Formatting Component.
      */
     public Component format(String input) {
-        // if the config message is empty, don't send it
+        // If the input is empty, don't format it.
         if (input.isEmpty()) {
-            return null;
+            return Component.empty();
         }
 
-        // the final component for this lore
         Component component;
-        // if we match the old color codes, then format them as so
+        // Match and format based on the format of the input.
         Matcher hexMatcher = HEX_PATTERN.matcher(input);
         Matcher colorMatcher = COLOR_CODES.matcher(input);
         if (hexMatcher.find() || colorMatcher.find()) {
+            // Format them as legacy formatting.
             component = LegacyComponentSerializer.legacyAmpersand().deserialize(input);
         } else {
-            // otherwise format them normally
+            // Format them as regular MiniMessage.
             component = hyperLib.getMiniMessage().deserialize(input);
         }
 
         return component.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+    }
+
+    /**
+     * Format a given list of strings into a Component. Supports legacy and MiniMessage.
+     *
+     * @param lines The input strings.
+     * @return All lines formatted into one Component with new lines between each string.
+     */
+    public Component formatMultiLine(List<String> lines) {
+        Component component = Component.empty();
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+
+            // If it's the final line, don't add a new line.
+            if (i == (lines.size() - 1)) {
+                component = component.append(format(line));
+            } else {
+                // Make sure to add a new line to the end.
+                component = component.append(format(line)).append(Component.newline());
+            }
+        }
+        return component;
     }
 }
