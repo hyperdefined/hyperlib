@@ -26,6 +26,7 @@ public class JSONUtils {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
+                    .header("Accept", "application/json")
                     .header("User-Agent", Constants.USER_AGENT)
                     .GET()
                     .build();
@@ -54,6 +55,7 @@ public class JSONUtils {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
+                    .header("Accept", "application/json")
                     .header("User-Agent", Constants.USER_AGENT)
                     .GET()
                     .build();
