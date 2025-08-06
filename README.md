@@ -1,1 +1,1 @@
-![wolf](https://pbs.twimg.com/media/F_YYyo2WMAAu7eA?format=jpg&name=4096x4096)
+![wolf](https://pbs.twimg.com/media/F_YYyo2WMAAu7eA?format=jpg&name=4096x4096 | width=500)
