@@ -62,7 +62,7 @@ public class HyperUpdater {
             // Check GitHub to see if we are outdated.
             int buildsBehind = gitHubPlugin.buildsVersionsBehind(currentGitHub);
             if (buildsBehind == 0) {
-                HyperLib.getPluginLogger().info("Yay! You are running the lates version!");
+                HyperLib.getPluginLogger().info("Yay! You are running the latest version!");
                 return;
             }
 
