@@ -4,6 +4,7 @@
 
 plugins {
     `java-library`
+    id("maven-publish")
     id("com.gradleup.shadow") version "9.4.1"
 }
 
@@ -25,7 +26,7 @@ dependencies {
 }
 
 group = "lol.hyper"
-version = "1.0.11"
+version = "1.0.12"
 description = "hyperlib"
 java.sourceCompatibility = JavaVersion.VERSION_25
 
@@ -37,9 +38,14 @@ tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
 }
 
-tasks {
-    build {
-        dependsOn(shadowJar)
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifact(tasks.shadowJar)
+        }
+    }
+    repositories {
+        mavenLocal()
     }
 }
 
@@ -49,6 +55,10 @@ tasks.shadowJar {
     relocate("org.json", "lol.hyper.hyperlib.shaded.json")
 }
 
-tasks.jar {
-    enabled = false
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["shadow"])
+        }
+    }
 }
