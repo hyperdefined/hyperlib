@@ -38,17 +38,6 @@ tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            artifact(tasks.shadowJar)
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
-}
-
 tasks.shadowJar {
     archiveClassifier.set("")
     relocate("org.bstats", "lol.hyper.hyperlib.shaded.bstats")
