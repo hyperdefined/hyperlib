@@ -25,7 +25,7 @@ dependencies {
 }
 
 group = "lol.hyper"
-version = "1.0.10"
+version = "1.0.11"
 description = "hyperlib"
 java.sourceCompatibility = JavaVersion.VERSION_25
 
