@@ -4,7 +4,7 @@
 
 plugins {
     `java-library`
-    `maven-publish`
+    id("com.gradleup.shadow") version "9.4.1"
 }
 
 repositories {
@@ -19,8 +19,8 @@ repositories {
 }
 
 dependencies {
-    api("org.bstats:bstats-bukkit:3.2.1")
-    api("org.json:json:20251224")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
+    implementation("org.json:json:20251224")
     compileOnly("io.papermc.paper:paper-api:26.1.1.build.+")
 }
 
@@ -35,4 +35,20 @@ tasks.withType<JavaCompile>() {
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
+}
+
+tasks {
+    build {
+        dependsOn(shadowJar)
+    }
+}
+
+tasks.shadowJar {
+    archiveClassifier.set("")
+    relocate("org.bstats", "lol.hyper.hyperlib.shaded.bstats")
+    relocate("org.json", "lol.hyper.hyperlib.shaded.json")
+}
+
+tasks.jar {
+    enabled = false
 }
